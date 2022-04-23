@@ -17,6 +17,8 @@ export const UIProvider: FC<UIProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(UIReducer, UI_INITIAL_STATE);
 
   return (
-    <UIContext.Provider value={UI_INITIAL_STATE}>{children}</UIContext.Provider>
+    <UIContext.Provider value={{ sidemenuOpen: false }}>
+      {children}
+    </UIContext.Provider>
   );
 };
