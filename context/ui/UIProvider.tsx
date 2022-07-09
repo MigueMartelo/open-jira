@@ -3,6 +3,7 @@ import { UIContext, UIReducer } from './';
 
 export interface UIState {
   sidemenuOpen: boolean;
+  isAddingEntry: boolean;
 }
 
 interface UIProviderProps {
@@ -11,6 +12,7 @@ interface UIProviderProps {
 
 const UI_INITIAL_STATE: UIState = {
   sidemenuOpen: false,
+  isAddingEntry: false,
 };
 
 export const UIProvider: FC<UIProviderProps> = ({ children }) => {
@@ -24,6 +26,10 @@ export const UIProvider: FC<UIProviderProps> = ({ children }) => {
     dispatch({ type: 'UI - Close Sidebar' });
   };
 
+  const setAddingEntry = (showEntry: boolean) => {
+    dispatch({ type: 'UI - Set Entry Form', payload: showEntry });
+  };
+
   return (
     <UIContext.Provider
       value={{
@@ -31,6 +37,7 @@ export const UIProvider: FC<UIProviderProps> = ({ children }) => {
         //methods
         openSideMenu,
         closeSideMenu,
+        setAddingEntry,
       }}
     >
       {children}
