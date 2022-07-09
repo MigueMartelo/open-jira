@@ -4,6 +4,7 @@ import { UIContext, UIReducer } from './';
 export interface UIState {
   sidemenuOpen: boolean;
   isAddingEntry: boolean;
+  isDragging: boolean;
 }
 
 interface UIProviderProps {
@@ -13,6 +14,7 @@ interface UIProviderProps {
 const UI_INITIAL_STATE: UIState = {
   sidemenuOpen: false,
   isAddingEntry: false,
+  isDragging: false,
 };
 
 export const UIProvider: FC<UIProviderProps> = ({ children }) => {
@@ -30,6 +32,14 @@ export const UIProvider: FC<UIProviderProps> = ({ children }) => {
     dispatch({ type: 'UI - Set Entry Form', payload: showEntry });
   };
 
+  const startDragging = () => {
+    dispatch({ type: 'UI - Start Dragging' });
+  };
+
+  const endDragging = () => {
+    dispatch({ type: 'UI - End Dragging' });
+  };
+
   return (
     <UIContext.Provider
       value={{
@@ -38,6 +48,8 @@ export const UIProvider: FC<UIProviderProps> = ({ children }) => {
         openSideMenu,
         closeSideMenu,
         setAddingEntry,
+        startDragging,
+        endDragging,
       }}
     >
       {children}
