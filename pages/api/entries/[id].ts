@@ -56,13 +56,11 @@ const getEntry = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { id } = req.query;
   await db.connect();
 
-  try {
-    const entry = await Entry.findById(id);
-    await db.disconnect();
-    res.status(200).json(entry!);
-  } catch (error) {
-    await db.disconnect();
-    console.log(error);
+  const entry = await Entry.findById(id);
+  await db.disconnect();
+
+  if (!entry) {
     res.status(404).json({ message: 'No se encontró la entrada' });
   }
+  res.status(200).json(entry!);
 };
